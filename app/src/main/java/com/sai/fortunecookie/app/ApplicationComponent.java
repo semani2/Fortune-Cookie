@@ -1,6 +1,6 @@
 package com.sai.fortunecookie.app;
 
-import com.sai.fortunecookie.HomeActivity;
+import com.sai.fortunecookie.home.HomeActivity;
 
 import javax.inject.Singleton;
 

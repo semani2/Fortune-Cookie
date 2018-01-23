@@ -1,7 +1,9 @@
-package com.sai.fortunecookie;
+package com.sai.fortunecookie.home;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.sai.fortunecookie.R;
 
 public class HomeActivity extends AppCompatActivity {
 
