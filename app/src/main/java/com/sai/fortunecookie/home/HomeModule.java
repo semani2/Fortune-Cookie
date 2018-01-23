@@ -1,6 +1,13 @@
 package com.sai.fortunecookie.home;
 
+import com.sai.fortunecookie.api.FortuneApiService;
+import com.sai.fortunecookie.repository.IRepository;
+import com.sai.fortunecookie.repository.Repository;
+
+import javax.inject.Singleton;
+
 import dagger.Module;
+import dagger.Provides;
 
 /**
  * Created by sai on 1/23/18.
@@ -8,4 +15,20 @@ import dagger.Module;
 
 @Module
 public class HomeModule {
+
+    @Provides
+    public HomeMVP.Presenter<HomeMVP.View> provideHomePresenter(HomeMVP.Model model) {
+        return new HomePresenter(model);
+    }
+
+    @Provides
+    public HomeMVP.Model provideHomeModel(IRepository repository) {
+        return new HomeModel(repository);
+    }
+
+    @Singleton
+    @Provides
+    public IRepository provideRepository(FortuneApiService fortuneApiService) {
+        return new Repository(fortuneApiService);
+    }
 }
