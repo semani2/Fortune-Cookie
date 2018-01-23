@@ -27,7 +27,7 @@ public class HomePresenter implements HomeMVP.Presenter<HomeMVP.View> {
 
     @Override
     public void setView(HomeMVP.View view) {
-        this.mView = mView;
+        this.mView = view;
     }
 
     @Override
