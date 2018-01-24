@@ -62,7 +62,12 @@ public class HomePresenter implements HomeMVP.Presenter<HomeMVP.View> {
                     disposable.dispose();
                 }
 
-                mView.displayFortuneMessage(fortuneMessage.getFortune()[0]);
+                StringBuilder sb = new StringBuilder();
+                for(String text: fortuneMessage.getFortune()) {
+                    sb.append(text);
+                }
+
+                mView.displayFortuneMessage(sb.toString());
                 timer.cancel();
             }
 
@@ -77,11 +82,11 @@ public class HomePresenter implements HomeMVP.Presenter<HomeMVP.View> {
                 Timber.d("On Complete called");
             }
         };
+
         disposable = mModel.loadMessage()
                 .retry()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(observer);
-
     }
 }
