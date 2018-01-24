@@ -68,6 +68,7 @@ public class HomeActivity extends AppCompatActivity implements HomeMVP.View{
     public void showLoading() {
         loadingProgressBar.setVisibility(View.VISIBLE);
         refreshFAB.setVisibility(View.GONE);
+        fortuneMessageTextView.setVisibility(View.GONE);
         //animateImage(true);
     }
 
@@ -75,6 +76,7 @@ public class HomeActivity extends AppCompatActivity implements HomeMVP.View{
     public void hideLoading() {
         loadingProgressBar.setVisibility(View.GONE);
         refreshFAB.setVisibility(View.VISIBLE);
+        fortuneMessageTextView.setVisibility(View.VISIBLE);
         //animateImage(false);
     }
 
