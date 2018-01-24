@@ -7,6 +7,7 @@ import com.sai.fortunecookie.api.model.FortuneMessage;
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
@@ -21,7 +22,7 @@ public class HomePresenter implements HomeMVP.Presenter<HomeMVP.View> {
 
     private HomeMVP.View mView;
 
-    private DisposableObserver<FortuneMessage> disposable;
+    private Disposable disposable;
 
     @Inject
     public HomePresenter(HomeMVP.Model mModel) {
@@ -44,34 +45,43 @@ public class HomePresenter implements HomeMVP.Presenter<HomeMVP.View> {
             @Override
             public void onFinish() {
                 if (disposable != null && !disposable.isDisposed()) {
-                    //disposable.dispose();
+                    disposable.dispose();
                 }
                 mView.displayFortuneMessage("Hello Hello! This is me");
             }
         }.start();
 
+        final DisposableObserver<FortuneMessage> observer = new DisposableObserver<FortuneMessage>() {
+            @Override
+            public void onNext(FortuneMessage fortuneMessage) {
+                Timber.d("Fetching message successful!");
+
+                timer.cancel();
+
+                if(disposable != null && !disposable.isDisposed()) {
+                    disposable.dispose();
+                }
+
+                mView.displayFortuneMessage(fortuneMessage.getFortune()[0]);
+                timer.cancel();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Timber.e(e);
+                //mView.showErrorMessage(e.getMessage());
+            }
+
+            @Override
+            public void onComplete() {
+                Timber.d("On Complete called");
+            }
+        };
         disposable = mModel.loadMessage()
                 .retry()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(new DisposableObserver<FortuneMessage>() {
-                    @Override
-                    public void onNext(FortuneMessage fortuneMessage) {
-                        Timber.d("Fetching message successful!");
-                        mView.displayFortuneMessage(fortuneMessage.getFortune()[0]);
-                        timer.cancel();
-                    }
+                .subscribeWith(observer);
 
-                    @Override
-                    public void onError(Throwable e) {
-                        Timber.e(e);
-                        //mView.showErrorMessage(e.getMessage());
-                    }
-
-                    @Override
-                    public void onComplete() {
-                        Timber.d("On Complete called");
-                    }
-                });
     }
 }
