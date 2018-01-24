@@ -1,16 +1,12 @@
 package com.sai.fortunecookie.home;
 
-import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.sai.fortunecookie.R;
 import com.sai.fortunecookie.app.App;
@@ -58,6 +54,18 @@ public class HomeActivity extends AppCompatActivity implements HomeMVP.View{
         mPresenter.loadFortuneMessage();
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mPresenter.rxUnsubscribe();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mPresenter.rxDestroy();
+    }
+
     private void setupDependencyInjection() {
         ((App)getApplication()).getComponent().inject(this);
 
@@ -68,7 +76,7 @@ public class HomeActivity extends AppCompatActivity implements HomeMVP.View{
     public void showLoading() {
         loadingProgressBar.setVisibility(View.VISIBLE);
         refreshFAB.setVisibility(View.GONE);
-        fortuneMessageTextView.setVisibility(View.GONE);
+        fortuneMessageTextView.setVisibility(View.INVISIBLE);
         //animateImage(true);
     }
 

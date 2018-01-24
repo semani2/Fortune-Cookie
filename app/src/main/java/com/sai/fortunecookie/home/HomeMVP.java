@@ -29,5 +29,9 @@ public interface HomeMVP {
         void setView(T view);
 
         void loadFortuneMessage();
+
+        void rxUnsubscribe();
+
+        void rxDestroy();
     }
 }

@@ -7,6 +7,7 @@ import com.sai.fortunecookie.api.model.FortuneMessage;
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
@@ -23,6 +24,8 @@ public class HomePresenter implements HomeMVP.Presenter<HomeMVP.View> {
     private HomeMVP.View mView;
 
     private Disposable disposable;
+
+    private CompositeDisposable networkDisposables = new CompositeDisposable();
 
     @Inject
     public HomePresenter(HomeMVP.Model mModel) {
@@ -89,5 +92,17 @@ public class HomePresenter implements HomeMVP.Presenter<HomeMVP.View> {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(observer);
+
+        networkDisposables.add(disposable);
+    }
+
+    @Override
+    public void rxUnsubscribe() {
+        if(!networkDisposables.isDisposed()) networkDisposables.clear();
+    }
+
+    @Override
+    public void rxDestroy() {
+        if(!networkDisposables.isDisposed()) networkDisposables.dispose();
     }
 }
