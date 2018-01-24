@@ -2,6 +2,7 @@ package com.sai.fortunecookie.repository;
 
 import com.sai.fortunecookie.api.model.FortuneMessage;
 
+import io.reactivex.Observable;
 import io.reactivex.Single;
 
 /**
@@ -14,5 +15,5 @@ public interface IRepository {
      * Method to return the fortune message from the API
      * @return Single<FortuneMessage>
      */
-    Single<FortuneMessage> getMessage();
+    Observable<FortuneMessage> getMessage();
 }

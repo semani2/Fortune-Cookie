@@ -2,6 +2,7 @@ package com.sai.fortunecookie.home;
 
 import com.sai.fortunecookie.api.model.FortuneMessage;
 
+import io.reactivex.Observable;
 import io.reactivex.Single;
 
 /**
@@ -11,7 +12,7 @@ import io.reactivex.Single;
 public interface HomeMVP {
 
     interface Model {
-        Single<FortuneMessage> loadMessage();
+        Observable<FortuneMessage> loadMessage();
     }
 
     interface View {

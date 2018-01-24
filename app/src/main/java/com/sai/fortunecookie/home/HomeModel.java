@@ -5,6 +5,7 @@ import com.sai.fortunecookie.repository.IRepository;
 
 import javax.inject.Inject;
 
+import io.reactivex.Observable;
 import io.reactivex.Single;
 
 /**
@@ -21,7 +22,7 @@ public class HomeModel implements HomeMVP.Model {
     }
 
     @Override
-    public Single<FortuneMessage> loadMessage() {
+    public Observable<FortuneMessage> loadMessage() {
         return mRepository.getMessage();
     }
 }

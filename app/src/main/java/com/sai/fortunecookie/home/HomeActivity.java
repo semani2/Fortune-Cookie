@@ -1,7 +1,9 @@
 package com.sai.fortunecookie.home;
 
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,12 +23,21 @@ public class HomeActivity extends AppCompatActivity implements HomeMVP.View{
     @BindView(R.id.fortune_message_text_view)
     TextView fortuneMessageTextView;
 
+    @BindView(R.id.refresh_fab)
+    FloatingActionButton refreshFAB;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         setupDependencyInjection();
 
+        refreshFAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mPresenter.loadFortuneMessage();
+            }
+        });
     }
 
     @Override
