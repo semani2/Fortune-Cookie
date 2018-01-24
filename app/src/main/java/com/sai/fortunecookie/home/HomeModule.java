@@ -1,6 +1,7 @@
 package com.sai.fortunecookie.home;
 
 import com.sai.fortunecookie.api.FortuneApiService;
+import com.sai.fortunecookie.logger.ILogger;
 import com.sai.fortunecookie.repository.IRepository;
 import com.sai.fortunecookie.repository.Repository;
 
@@ -17,8 +18,8 @@ import dagger.Provides;
 public class HomeModule {
 
     @Provides
-    public HomeMVP.Presenter<HomeMVP.View> provideHomePresenter(HomeMVP.Model model) {
-        return new HomePresenter(model);
+    public HomeMVP.Presenter<HomeMVP.View> provideHomePresenter(HomeMVP.Model model, ILogger logger) {
+        return new HomePresenter(model, logger);
     }
 
     @Provides

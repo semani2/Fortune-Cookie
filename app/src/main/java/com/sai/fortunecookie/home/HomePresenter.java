@@ -1,6 +1,7 @@
 package com.sai.fortunecookie.home;
 
 import com.sai.fortunecookie.api.model.FortuneMessage;
+import com.sai.fortunecookie.logger.ILogger;
 
 import java.util.concurrent.TimeUnit;
 
@@ -11,7 +12,6 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
-import timber.log.Timber;
 
 /**
  * Created by sai on 1/23/18.
@@ -19,7 +19,11 @@ import timber.log.Timber;
 
 public class HomePresenter implements HomeMVP.Presenter<HomeMVP.View> {
 
+    private static final String TAG = HomePresenter.class.getSimpleName();
+
     private final HomeMVP.Model mModel;
+
+    private final ILogger mLogger;
 
     private HomeMVP.View mView;
 
@@ -28,8 +32,9 @@ public class HomePresenter implements HomeMVP.Presenter<HomeMVP.View> {
     private CompositeDisposable networkDisposables = new CompositeDisposable();
 
     @Inject
-    public HomePresenter(HomeMVP.Model mModel) {
+    public HomePresenter(HomeMVP.Model mModel, ILogger logger) {
         this.mModel = mModel;
+        this.mLogger = logger;
     }
 
     @Override
@@ -44,7 +49,7 @@ public class HomePresenter implements HomeMVP.Presenter<HomeMVP.View> {
         final DisposableObserver<FortuneMessage> observer = new DisposableObserver<FortuneMessage>() {
             @Override
             public void onNext(FortuneMessage fortuneMessage) {
-                Timber.d("Fetching message successful!");
+                mLogger.d(TAG, "Fetching message successful!");
 
                 if (disposable != null && !disposable.isDisposed()) {
                     disposable.dispose();
@@ -67,7 +72,7 @@ public class HomePresenter implements HomeMVP.Presenter<HomeMVP.View> {
 
             @Override
             public void onComplete() {
-                Timber.d("On Complete called");
+                mLogger.d(TAG, "On Complete called");
             }
         };
 

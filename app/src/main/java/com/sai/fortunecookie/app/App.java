@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.sai.fortunecookie.api.FortuneApiModule;
 import com.sai.fortunecookie.home.HomeModule;
+import com.sai.fortunecookie.logger.LoggerModule;
 
 import timber.log.Timber;
 
@@ -21,6 +22,7 @@ public class App extends Application{
                 .applicationModule(new ApplicationModule(this))
                 .homeModule(new HomeModule())
                 .fortuneApiModule(new FortuneApiModule())
+                .loggerModule(new LoggerModule())
                 .build();
 
         Timber.plant(new Timber.DebugTree());
