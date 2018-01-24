@@ -36,6 +36,7 @@ public class HomePresenter implements HomeMVP.Presenter<HomeMVP.View> {
 
     @Override
     public void loadFortuneMessage() {
+        mView.showLoading();
         final CountDownTimer timer = new CountDownTimer(10000, 1000) {
             @Override
             public void onTick(long l) {
@@ -47,7 +48,8 @@ public class HomePresenter implements HomeMVP.Presenter<HomeMVP.View> {
                 if (disposable != null && !disposable.isDisposed()) {
                     disposable.dispose();
                 }
-                mView.displayFortuneMessage("Hello Hello! This is me");
+                mView.hideLoading();
+                mView.showDefaultmessage();
             }
         }.start();
 
@@ -67,14 +69,13 @@ public class HomePresenter implements HomeMVP.Presenter<HomeMVP.View> {
                     sb.append(text);
                 }
 
+                mView.hideLoading();
                 mView.displayFortuneMessage(sb.toString());
-                timer.cancel();
             }
 
             @Override
             public void onError(Throwable e) {
                 Timber.e(e);
-                //mView.showErrorMessage(e.getMessage());
             }
 
             @Override

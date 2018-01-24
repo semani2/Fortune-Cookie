@@ -7,14 +7,23 @@
     tools:context="com.sai.fortunecookie.home.HomeActivity"
     android:background="@color/colorPrimary">
 
+
+    <ImageView
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:src="@mipmap/ic_launcher_round"
+        android:layout_above="@id/fortune_message_text_view"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp"
+        android:id="@+id/fortune_cookie_image_view"/>
+
     <TextView
         android:id="@+id/fortune_message_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:fontFamily="@font/bad_script"
-        android:text="Hello World!"
-        android:textSize="24sp"
+        android:textSize="26sp"
         android:textStyle="bold"
         android:textAlignment="center"
         android:layout_marginStart="16dp"
@@ -29,6 +38,14 @@
         app:fabSize="auto"
         app:elevation="6dp"
         android:src="@drawable/ic_refresh"
-        android:id="@+id/refresh_fab" />
+        android:id="@+id/refresh_fab"
+        android:visibility="gone"/>
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:id="@+id/loading_progress_bar"
+        android:visibility="gone"/>
 
 </RelativeLayout>

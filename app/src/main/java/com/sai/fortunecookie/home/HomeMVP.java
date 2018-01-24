@@ -22,7 +22,7 @@ public interface HomeMVP {
 
         void displayFortuneMessage(String message);
 
-        void showErrorMessage(String errorMessage);
+        void showDefaultmessage();
     }
 
     interface Presenter<T> {

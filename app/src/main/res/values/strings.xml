@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">Fortune Cookie</string>
+    <string name="app_name" translatable="false">Fortune Cookie</string>
+    <string name="str_default_fortune_message">Today is the day to show someone you care.</string>
 </resources>
