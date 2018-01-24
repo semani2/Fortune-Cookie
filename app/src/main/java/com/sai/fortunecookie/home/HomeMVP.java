@@ -3,7 +3,6 @@ package com.sai.fortunecookie.home;
 import com.sai.fortunecookie.api.model.FortuneMessage;
 
 import io.reactivex.Observable;
-import io.reactivex.Single;
 
 /**
  * Created by sai on 1/23/18.
@@ -33,5 +32,7 @@ public interface HomeMVP {
         void rxUnsubscribe();
 
         void rxDestroy();
+
+        HomeMVP.View getView();
     }
 }

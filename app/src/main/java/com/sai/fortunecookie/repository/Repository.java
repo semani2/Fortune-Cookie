@@ -4,8 +4,6 @@ import com.sai.fortunecookie.api.FortuneApiService;
 import com.sai.fortunecookie.api.model.FortuneMessage;
 
 import io.reactivex.Observable;
-import io.reactivex.Single;
-import timber.log.Timber;
 
 
 /**
@@ -22,7 +20,6 @@ public class Repository implements IRepository {
 
     @Override
     public Observable<FortuneMessage> getMessage() {
-        Timber.d("Calling get message");
         return mFortuneApiService.getFortuneMessage();
     }
 }

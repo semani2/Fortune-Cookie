@@ -1,8 +1,8 @@
 package com.sai.fortunecookie.home;
 
-import android.os.CountDownTimer;
-
 import com.sai.fortunecookie.api.model.FortuneMessage;
+
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
@@ -40,45 +40,29 @@ public class HomePresenter implements HomeMVP.Presenter<HomeMVP.View> {
     @Override
     public void loadFortuneMessage() {
         mView.showLoading();
-        final CountDownTimer timer = new CountDownTimer(10000, 1000) {
-            @Override
-            public void onTick(long l) {
-                // Do nothing
-            }
-
-            @Override
-            public void onFinish() {
-                if (disposable != null && !disposable.isDisposed()) {
-                    disposable.dispose();
-                }
-                mView.hideLoading();
-                mView.showDefaultmessage();
-            }
-        }.start();
 
         final DisposableObserver<FortuneMessage> observer = new DisposableObserver<FortuneMessage>() {
             @Override
             public void onNext(FortuneMessage fortuneMessage) {
                 Timber.d("Fetching message successful!");
 
-                timer.cancel();
-
-                if(disposable != null && !disposable.isDisposed()) {
+                if (disposable != null && !disposable.isDisposed()) {
                     disposable.dispose();
                 }
 
                 StringBuilder sb = new StringBuilder();
-                for(String text: fortuneMessage.getFortune()) {
+                for (String text : fortuneMessage.getFortune()) {
                     sb.append(text);
                 }
 
-                mView.hideLoading();
                 mView.displayFortuneMessage(sb.toString());
+                mView.hideLoading();
             }
 
             @Override
             public void onError(Throwable e) {
-                Timber.e(e);
+                mView.showDefaultmessage();
+                mView.hideLoading();
             }
 
             @Override
@@ -90,6 +74,7 @@ public class HomePresenter implements HomeMVP.Presenter<HomeMVP.View> {
         disposable = mModel.loadMessage()
                 .retry()
                 .subscribeOn(Schedulers.io())
+                .timeout(10, TimeUnit.SECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(observer);
 
@@ -104,5 +89,10 @@ public class HomePresenter implements HomeMVP.Presenter<HomeMVP.View> {
     @Override
     public void rxDestroy() {
         if(!networkDisposables.isDisposed()) networkDisposables.dispose();
+    }
+
+    @Override
+    public HomeMVP.View getView() {
+        return mView;
     }
 }

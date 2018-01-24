@@ -1,8 +1,8 @@
 package com.sai.fortunecookie.home;
 
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -39,12 +39,7 @@ public class HomeActivity extends AppCompatActivity implements HomeMVP.View{
         setContentView(R.layout.activity_home);
         setupDependencyInjection();
 
-        refreshFAB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mPresenter.loadFortuneMessage();
-            }
-        });
+        refreshFAB.setOnClickListener(view -> mPresenter.loadFortuneMessage());
     }
 
     @Override

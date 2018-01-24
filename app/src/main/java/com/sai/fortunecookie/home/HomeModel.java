@@ -6,7 +6,7 @@ import com.sai.fortunecookie.repository.IRepository;
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
-import io.reactivex.Single;
+import timber.log.Timber;
 
 /**
  * Created by sai on 1/23/18.
@@ -23,6 +23,7 @@ public class HomeModel implements HomeMVP.Model {
 
     @Override
     public Observable<FortuneMessage> loadMessage() {
-        return mRepository.getMessage();
+        return mRepository.getMessage()
+                .doOnError(Timber::d);
     }
 }
