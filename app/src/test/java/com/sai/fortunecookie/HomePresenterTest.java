@@ -40,31 +40,6 @@ public class HomePresenterTest {
 
     private final FortuneMessage validResponse = new FortuneMessage();
 
-  /*  *//**
-     * Setting up RxSchedulers has been taken from
-     * https://stackoverflow.com/questions/43356314/android-rxjava-2-junit-test-getmainlooper-in-android-os-looper-not-mocked-runt
-     *//*
-    private static void setUpRxSchedulers() {
-        Scheduler immediate = new Scheduler() {
-            @Override
-            public Disposable scheduleDirect(@NonNull Runnable run, long delay, @NonNull TimeUnit unit) {
-                // this prevents StackOverflowErrors when scheduling with a delay
-                return super.scheduleDirect(run, 0, unit);
-            }
-
-            @Override
-            public Scheduler.Worker createWorker() {
-                return new ExecutorScheduler.ExecutorWorker(Runnable::run);
-            }
-        };
-
-        RxJavaPlugins.setInitIoSchedulerHandler(scheduler -> immediate);
-        RxJavaPlugins.setInitComputationSchedulerHandler(scheduler -> immediate);
-        RxJavaPlugins.setInitNewThreadSchedulerHandler(scheduler -> immediate);
-        RxJavaPlugins.setInitSingleSchedulerHandler(scheduler -> immediate);
-        RxAndroidPlugins.setInitMainThreadSchedulerHandler(scheduler -> immediate);
-    }*/
-
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
@@ -107,19 +82,4 @@ public class HomePresenterTest {
         verify(mModel, times(1)).loadMessage();
         verify(mView, times(0)).showDefaultmessage();
     }
-
-    /*@Test
-    public void testTimeoutScenarioWithDefaultMessage() {
-        setUpRxSchedulers();
-        //RxAndroidPlugins.setInitMainThreadSchedulerHandler(scheduler -> Schedulers.trampoline());
-        when(mModel.loadMessage()).thenReturn(Observable.error(new Exception("hola")));
-
-        mPresenter.loadFortuneMessage();
-
-        InOrder inorder = Mockito.inOrder(mView);
-
-        inorder.verify(mView, times(1)).showLoading();
-        inorder.verify(mView).showDefaultmessage();
-        inorder.verify(mView, times(1)).hideLoading();
-    }*/
 }

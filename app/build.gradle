@@ -48,6 +48,8 @@ ext {
     rxJavaVersion = "2.1.5"
     rxAndroidVersion = "2.0.1"
     timberVersion = "4.5.1"
+    espressoVersion = "3.0.1"
+    testRunnerVersion = "1.0.1"
 }
 
 dependencies {
@@ -58,8 +60,8 @@ dependencies {
 
     // Testing
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    androidTestImplementation "com.android.support.test:runner:$testRunnerVersion"
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:$espressoVersion"
 
     //Retrofit
     compile "com.squareup.retrofit2:retrofit:$retrofitVersion"
@@ -91,10 +93,8 @@ dependencies {
 
     // Dependencies for Android unit tests
     testCompile "org.mockito:mockito-core:2.7.9"
-    /*androidTestCompile 'com.google.dexmaker:dexmaker:1.2'
-    androidTestCompile 'com.google.dexmaker:dexmaker-mockito:1.2'*/
 
     // Espresso UI Testing
-    androidTestCompile "com.android.support.test.espresso:espresso-core:3.0.1"
-    androidTestCompile "com.android.support.test:runner:1.0.1"
+    androidTestCompile "com.android.support.test.espresso:espresso-core:$espressoVersion"
+    androidTestCompile "com.android.support.test:runner:$testRunnerVersion"
 }
