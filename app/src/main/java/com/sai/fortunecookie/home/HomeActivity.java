@@ -33,11 +33,19 @@ public class HomeActivity extends AppCompatActivity implements HomeMVP.View{
     @BindView(R.id.fortune_cookie_image_view)
     ImageView fortuneCookieImageView;
 
+    private static final String MESSAGE_KEY = "message";
+
+    private String message = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         setupDependencyInjection();
+
+        if(savedInstanceState != null) {
+            message = savedInstanceState.getString(MESSAGE_KEY, null);
+        }
 
         refreshFAB.setOnClickListener(view -> mPresenter.loadFortuneMessage());
     }
@@ -46,7 +54,11 @@ public class HomeActivity extends AppCompatActivity implements HomeMVP.View{
     protected void onStart() {
         super.onStart();
         mPresenter.setView(this);
-        mPresenter.loadFortuneMessage();
+        if(message == null) {
+            mPresenter.loadFortuneMessage();
+        } else {
+            fortuneMessageTextView.setText(message);
+        }
     }
 
     @Override
@@ -59,6 +71,12 @@ public class HomeActivity extends AppCompatActivity implements HomeMVP.View{
     protected void onDestroy() {
         super.onDestroy();
         mPresenter.rxDestroy();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        if(!fortuneMessageTextView.getText().toString().isEmpty()) outState.putString(MESSAGE_KEY, fortuneMessageTextView.getText().toString());
+        super.onSaveInstanceState(outState);
     }
 
     private void setupDependencyInjection() {

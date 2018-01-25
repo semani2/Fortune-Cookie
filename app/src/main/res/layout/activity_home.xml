@@ -44,7 +44,7 @@
             app:elevation="6dp"
             android:src="@drawable/ic_refresh"
             android:id="@+id/refresh_fab"
-            android:visibility="gone"/>
+            android:visibility="visible"/>
 
         <ProgressBar
             android:layout_width="wrap_content"
