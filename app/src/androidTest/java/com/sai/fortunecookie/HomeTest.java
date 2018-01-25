@@ -1,6 +1,7 @@
 package com.sai.fortunecookie;
 
 import android.content.Context;
+import android.content.pm.ActivityInfo;
 import android.net.wifi.WifiManager;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.filters.LargeTest;
@@ -104,6 +105,17 @@ public class HomeTest {
         onView(withId(R.id.refresh_fab)).check(matches(isDisplayed()));
 
         toggleWifi(true);
+    }
+
+    @Test
+    public void test_Orientation_Change_NoLoading() {
+        sleep(10000);
+
+        mActivityRule.getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
+        onView(withId(R.id.loading_progress_bar)).check(matches(not(isDisplayed())));
+        onView(withId(R.id.fortune_message_text_view)).check(matches(isDisplayed()));
+        onView(withId(R.id.refresh_fab)).check(matches(isDisplayed()));
     }
 
     private void toggleWifi(boolean enable) {
