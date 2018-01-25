@@ -90,7 +90,6 @@ public class HomeActivity extends AppCompatActivity implements HomeMVP.View{
         loadingProgressBar.setVisibility(View.VISIBLE);
         refreshFAB.setVisibility(View.GONE);
         fortuneMessageTextView.setVisibility(View.INVISIBLE);
-        //animateImage(true);
     }
 
     @Override
@@ -98,7 +97,6 @@ public class HomeActivity extends AppCompatActivity implements HomeMVP.View{
         loadingProgressBar.setVisibility(View.GONE);
         refreshFAB.setVisibility(View.VISIBLE);
         fortuneMessageTextView.setVisibility(View.VISIBLE);
-        //animateImage(false);
     }
 
     @Override
@@ -111,33 +109,4 @@ public class HomeActivity extends AppCompatActivity implements HomeMVP.View{
     public void showDefaultmessage() {
         fortuneMessageTextView.setText(getString(R.string.str_default_fortune_message));
     }
-
-    //In progress...
-    /*private void animateImage(final boolean isTopToBottom) {
-        new Handler().post(new Runnable() {
-            @Override
-            public void run() {
-                TranslateAnimation animation = new TranslateAnimation(0, 0, !isTopToBottom ? 200 : 0, isTopToBottom ? 200 : 0);
-                animation.setDuration(1000);
-                animation.setFillAfter(true);
-                animation.setAnimationListener(new Animation.AnimationListener() {
-                    @Override
-                    public void onAnimationStart(Animation animation) {
-                        if(isTopToBottom) fortuneMessageTextView.setVisibility(View.GONE);
-                    }
-
-                    @Override
-                    public void onAnimationEnd(Animation animation) {
-                       if(!isTopToBottom) fortuneMessageTextView.setVisibility(View.VISIBLE);
-                    }
-
-                    @Override
-                    public void onAnimationRepeat(Animation animation) {
-
-                    }
-                });
-                fortuneCookieImageView.startAnimation(animation);
-            }
-        });
-    }*/
 }

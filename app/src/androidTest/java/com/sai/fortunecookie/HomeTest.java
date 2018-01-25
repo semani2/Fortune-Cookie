@@ -31,6 +31,8 @@ import static org.hamcrest.CoreMatchers.not;
 @LargeTest
 public class HomeTest {
 
+    private static final String TODAY_IS_THE_DAY_TO_SHOW_SOMEONE_YOU_CARE = "Today is the day to show someone you care.";
+
     @Rule
     public ActivityTestRule<HomeActivity> mActivityRule =
             new ActivityTestRule<>(HomeActivity.class);
@@ -100,13 +102,16 @@ public class HomeTest {
         onView(withId(R.id.loading_progress_bar)).check(matches(not(isDisplayed())));
 
         onView(withId(R.id.fortune_message_text_view)).check(matches(isDisplayed()));
-        onView(withId(R.id.fortune_message_text_view)).check(matches(withText("Today is the day to show someone you care.")));
+        onView(withId(R.id.fortune_message_text_view)).check(matches(withText(TODAY_IS_THE_DAY_TO_SHOW_SOMEONE_YOU_CARE)));
 
         onView(withId(R.id.refresh_fab)).check(matches(isDisplayed()));
 
         toggleWifi(true);
     }
 
+    /**
+     * Testing the case when we change orientation of phone we preserve the fortune message
+     */
     @Test
     public void test_Orientation_Change_NoLoading() {
         sleep(10000);

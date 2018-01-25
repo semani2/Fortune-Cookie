@@ -50,13 +50,13 @@ ext {
     timberVersion = "4.5.1"
     espressoVersion = "3.0.1"
     testRunnerVersion = "1.0.1"
+    mockitoVersion = "2.7.9"
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "com.android.support:appcompat-v7:$supportLibraryVersion"
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile 'com.android.support:support-annotations:26.1.0'
+    compile "com.android.support:support-annotations:$supportLibraryVersion"
 
     // Testing
     testImplementation 'junit:junit:4.12'
@@ -92,7 +92,7 @@ dependencies {
     compile "com.android.support:design:$supportLibraryVersion"
 
     // Dependencies for Android unit tests
-    testCompile "org.mockito:mockito-core:2.7.9"
+    testCompile "org.mockito:mockito-core:$mockitoVersion"
 
     // Espresso UI Testing
     androidTestCompile "com.android.support.test.espresso:espresso-core:$espressoVersion"

@@ -57,6 +57,13 @@ public class HomePresenterTest {
         assertNotNull(mPresenter.getView());
     }
 
+    /**
+     * Verifying the basic scenario for loading a fortune message
+     * Call is made to fetch the message
+     * 1. Verify that we call showLoading on the view
+     * 2. Verify that we call displayFortuneMessage on the View
+     * 3. Verify that we call hideLoading on the view
+     */
     @Test
     public void testValidFortuneMessage() {
         when(mModel.loadMessage()).thenReturn(Observable.just(validResponse));
@@ -73,6 +80,10 @@ public class HomePresenterTest {
         inorder.verify(mView, times(1)).hideLoading();
     }
 
+    /**
+     * Testing that when we get a valid response from the server,
+     * we do not show the default message
+     */
     @Test
     public void testValidFortuneMessageNotShowDefault() {
         when(mModel.loadMessage()).thenReturn(Observable.just(validResponse));
