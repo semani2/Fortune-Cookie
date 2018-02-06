@@ -3,4 +3,6 @@
     <color name="colorPrimary">#81d4fa</color>
     <color name="colorPrimaryDark">#4ba3c9</color>
     <color name="colorAccent">#4ba3c9</color>
+
+    <color name="colorFortuneTextColor">#666666</color>
 </resources>

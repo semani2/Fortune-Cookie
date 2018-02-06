@@ -32,7 +32,9 @@
             android:textStyle="bold"
             android:textAlignment="center"
             android:layout_below="@id/fortune_cookie_image_view"
-            android:layout_centerHorizontal="true"/>
+            android:layout_centerHorizontal="true"
+            tools:text="Hello world"
+            android:textColor="@color/colorFortuneTextColor"/>
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/refresh_fab"
